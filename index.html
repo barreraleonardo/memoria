@@ -85,6 +85,7 @@
                 transform: rotateY(0deg);
             }
         }
+       
     </style>
 
     <!--Html-->
@@ -100,8 +101,10 @@
         
         let iconos = [];
         let selecciones = [];
+        let cont = 0;
         const clickSound = new Audio('./audio/click.mp3');
         const exitoSound = new Audio('./audio/exito.mp3');
+        const winSound = new Audio('./audio/win.mp3');
         generarTablero();
 
         function cargarIconos() {
@@ -172,9 +175,15 @@
                     tarjeta1.style.transform = "rotateY(0deg)";
                     tarjeta2.style.transform = "rotateY(0deg)";
                 }else{
-                    exitoSound.play();
+                    cont ++;
+                    if(cont == 12){
+                        winSound.play();
+                    }else{
+                        exitoSound.play();
                     trasera1.style.background = "plum";
                     trasera2.style.background = "plum";
+                    
+                    }
                 }
             },500);
         }
