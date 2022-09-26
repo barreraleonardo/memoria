@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,23 +8,25 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <title>Memoria</title>
 </head>
+
 <body>
     <!--CSS-->
     <style>
-        :root{
+        :root {
             --w: calc(70vw / 6);
             --h: calc(70vh / 4);
         }
 
-        *{
+        * {
             transition: all 0.5s;
         }
 
-        body{
+        body {
             padding: 0;
             margin: 0;
             -webkit-perspective: 1000;
-            background: turquoise;
+            background: plum;
+;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -31,32 +34,39 @@
             align-items: center;
             font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
             text-align: center;
+            
         }
 
-        div{
+        div {
             display: inline-block;
         }
 
-        .area-tarjeta, .tarjeta, .cara{
+        .area-tarjeta,
+        .tarjeta,
+        .cara {
             cursor: pointer;
             width: var(--w);
             min-width: 80px;
             height: var(--h);
         }
-        .trasera{
+
+        .trasera {
             background-color: lightcyan;
             transform: rotateY(180deg);
         }
-        .superior{
-            background: linear-gradient(orange,darkorange);
+
+        .superior {
+            background: url("img/bgBackCard.JPG");
+            background-size: cover;
         }
-        .tarjeta{
+
+        .tarjeta {
             position: relative;
             transform-style: preserve-3d;
             animation: iniciar 5s;
         }
-        
-        .cara{
+
+        .cara {
             position: absolute;
             backface-visibility: hidden;
             box-shadow: 0 0 0 5px white;
@@ -65,32 +75,87 @@
             justify-content: center;
             align-items: center;
         }
-        .nuevoJuego{
+
+        .nuevoJuego {
             cursor: pointer;
-            background: linear-gradient(orange,darkorange);
+            background: #509DB1;
             padding: 20px;
             border-radius: 50px;
             border: white 5px solid;
+            color: aliceblue;
+            font-size: 18px;
         }
 
-        img{
+        img {
             max-width: 100%;
             max-height: 100%;
         }
-        @keyframes iniciar{
-            20%,90%{
+
+        .puntaje{
+            background-color: plum;
+            font-size: 3em;
+            font-weight: bold;
+            font-family: sans-serif;
+            width: 75px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 5px solid white;
+        }
+
+        @keyframes iniciar {
+
+            20%,
+            90% {
                 transform: rotateY(180deg);
             }
-            0%,100%{
+
+            0%,
+            100% {
                 transform: rotateY(0deg);
             }
         }
-       
+
+        @keyframes colores {
+            20%{
+                background-color:#85B046 ;
+            }
+            40%{
+                background-color:#B0753E ;
+            }
+            60%{
+                background-color:#509DB1 ;
+            }
+            80%{
+                background-color:#A161B0 ;
+            }
+            100%{
+                background-color:#3E99B0 ;
+            }
+           
+        }
+
+        @media (max-width: 538px) {
+            body{
+                background-color: black;
+            }
+            .area-tarjeta,
+        .tarjeta,
+        :root {
+            --w: calc(70vw / 4);
+            --h: calc(70vh / 6);
+        }
+        #tablero{
+            width: 90%;
+            padding: 20px;
+        }
+        }
     </style>
 
     <!--Html-->
     <div id="tablero">
-        
+
     </div>
     <br>
     <div class="nuevoJuego" onclick="generarTablero()">
@@ -98,10 +163,11 @@
     </div>
     <!--JS-->
     <script>
-        
+
         let iconos = [];
         let selecciones = [];
-        let cont = 0;
+        let cont;
+        let body = document.querySelector('body');
         const clickSound = new Audio('./audio/click.mp3');
         const exitoSound = new Audio('./audio/exito.mp3');
         const winSound = new Audio('./audio/win.mp3');
@@ -125,69 +191,76 @@
         }
 
         function generarTablero() {
+            cont = 11;
+            winSound.pause();
+            winSound.currentTime = 0;
+            body.style.animation = null;
             cargarIconos();
             let tablero = document.getElementById("tablero");
+            let score = document.getElementById("score");
             let tarjetas = [];
             for (let i = 0; i < 24; i++) {
                 tarjetas.push(`
-                <div class="area-tarjeta" onclick="seleccionarTarjeta(${i})">
-            <div class="tarjeta" id="tarjeta${i}">
-                <div class="cara trasera" id="trasera${i}">
-                    <img src="${iconos[0]}">
-                </div>
-                <div class="cara superior">
-                    <i class="fa-solid fa-question"></i>
-                </div>
-            </div>
-        </div>
+                    <div class="area-tarjeta" onclick="seleccionarTarjeta(${i})">
+                        <div class="tarjeta" id="tarjeta${i}">
+                            <div class="cara trasera" id="trasera${i}">
+                                <img src="${iconos[0]}"></img>
+                            </div>
+                            <div class="cara superior">
+                            </div>
+                        </div>
+                    </div>
                 `);
-                if(i%2==1){
+                if (i % 2 == 1) {
                     iconos.splice(0, 1);
                 }
-            } 
-            tarjetas.sort(()=> Math.random()-0.5);
+            }
+            tarjetas.sort(() => Math.random() - 0.5);
             tablero.innerHTML = tarjetas.join('');
+            
         }
 
-        
 
-        function seleccionarTarjeta(i){
-                clickSound.play();
-             let tarjeta = document.getElementById("tarjeta"+i);
-             if(tarjeta.style.transform != "rotateY(180deg)"){
+
+        function seleccionarTarjeta(i) {
+            clickSound.play();
+            let tarjeta = document.getElementById("tarjeta" + i);
+            if (tarjeta.style.transform != "rotateY(180deg)") {
                 tarjeta.style.transform = "rotateY(180deg)";
                 selecciones.push(i);
-             }
-             if(selecciones.length == 2){
+            }
+            if (selecciones.length == 2) {
                 deseleccionar(selecciones);
                 selecciones = [];
-             }
+            }
         }
 
-        function deseleccionar(selecciones){
-            setTimeout(()=>{
+        function deseleccionar(selecciones) {
+            setTimeout(() => {
                 let trasera1 = document.getElementById("trasera" + selecciones[0]);
                 let trasera2 = document.getElementById("trasera" + selecciones[1]);
 
-                if (trasera1.innerHTML != trasera2.innerHTML){
+                if (trasera1.innerHTML != trasera2.innerHTML) {
                     let tarjeta1 = document.getElementById("tarjeta" + selecciones[0]);
                     let tarjeta2 = document.getElementById("tarjeta" + selecciones[1]);
                     tarjeta1.style.transform = "rotateY(0deg)";
                     tarjeta2.style.transform = "rotateY(0deg)";
-                }else{
-                    cont ++;
-                    if(cont == 12){
+                } else {
+                    cont++;
+                    if (cont == 12) {
                         winSound.play();
-                    }else{
+                        body.style.animation = 'colores 1s infinite alternate';
+                    } else {
                         exitoSound.play();
-                    trasera1.style.background = "plum";
-                    trasera2.style.background = "plum";
-                    
+                        trasera1.style.background = "plum";
+                        trasera2.style.background = "plum";
+
                     }
                 }
-            },500);
+            }, 500);
         }
 
     </script>
 </body>
+
 </html>
