@@ -4,13 +4,14 @@ let iconos = [];
         let body = document.querySelector('body');
         let nuevoJuego = document.getElementById("nuevoJuego");
         let rangoVolumen = document.getElementById("rangoVolumen");
+        let start = document.getElementById("start");
         const clickSound = new Audio('./audio/click.mp3');
         const exitoSound = new Audio('./audio/yeaaa.mp3');
         const winSound = new Audio('./audio/win.mp3');
         const startSound = new Audio('./audio/mario-kart-start.mp3');
         const gameSound = new Audio('./audio/kart-mario.mp3');
         
-        
+        nuevoJuego.style.display = 'none';
 
         rangoVolumen.onchange = () => {
             let volumen = rangoVolumen.value / 100;
@@ -25,6 +26,8 @@ let iconos = [];
 
         function cargarIconos() {
             nuevoJuego.innerHTML = "NEW GAME";
+            nuevoJuego.style.display = "block";
+            body.style.background = "plum";
             iconos = [
                 './img/1.jpg',
                 './img/2.jpg',
