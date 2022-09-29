@@ -3,8 +3,6 @@ let iconos = [];
         let cont;
         let body = document.querySelector('body');
         let nuevoJuego = document.getElementById("nuevoJuego");
-        let subirVolumen = document.getElementById("volumen+");
-        let bajarVolumen = document.getElementById("volumen-");
         let rangoVolumen = document.getElementById("rangoVolumen");
         const clickSound = new Audio('./audio/click.mp3');
         const exitoSound = new Audio('./audio/yeaaa.mp3');
@@ -15,7 +13,14 @@ let iconos = [];
         
 
         rangoVolumen.onchange = () => {
-            gameSound.volume = rangoVolumen.value / 100;
+            let volumen = rangoVolumen.value / 100;
+
+            gameSound.volume = volumen;
+            clickSound.volume = volumen;
+            exitoSound.volume = volumen;
+            winSound.volume = volumen;
+            startSound.volume = volumen;
+            
         };
 
         function cargarIconos() {
