@@ -5,6 +5,7 @@ let iconos = [];
         let nuevoJuego = document.getElementById("nuevoJuego");
         let rangoVolumen = document.getElementById("rangoVolumen");
         let start = document.getElementById("start");
+        let tarjeta = document.getElementsByClassName("area-tarjeta");
         const clickSound = new Audio('./audio/click.mp3');
         const exitoSound = new Audio('./audio/yeaaa.mp3');
         const winSound = new Audio('./audio/win.mp3');
@@ -55,7 +56,7 @@ let iconos = [];
                 gameSound.play();
                 
             }, 3100); 
-            cont =0;
+            cont =11;
            
             winSound.pause();
             winSound.currentTime = 0;
@@ -116,6 +117,8 @@ let iconos = [];
                         gameSound.currentTime = 0;
                         winSound.play();
                         body.style.animation = 'colores 1s infinite alternate';
+                        for(var i = 0; i < tarjeta.length; i++)
+                            tarjeta[i].style.animation = 'dance 0.30s linear infinite alternate both';
                         
                     } else {
                         exitoSound.play();
@@ -126,3 +129,5 @@ let iconos = [];
                 }
             }, 500);
         }
+
+	        

@@ -7,12 +7,16 @@
     transition: all 0.5s;
 }
 
+#start{
+    width: 40vw;
+    height: 70vh;
+}
+
 body {
     padding: 0;
     margin: 0;
     -webkit-perspective: 1000;
     background: black;
-;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -39,17 +43,26 @@ div {
 .trasera {
     background-color: lightcyan;
     transform: rotateY(180deg);
+   
 }
 
 .superior {
     background: url("img/bgBackCard.JPG");
     background-size: cover;
+    
 }
 
 .tarjeta {
     position: relative;
     transform-style: preserve-3d;
     animation: iniciar 5s;
+    
+}
+.dance {
+    position: relative;
+    transform-style: preserve-3d;
+    -webkit-animation: dance 0.65s linear infinite alternate both;
+    animation: dance 0.65s linear infinite alternate both;
 }
 
 .cara {
@@ -112,6 +125,36 @@ img {
         transform: rotateY(0deg);
     }
 }
+
+@-webkit-keyframes dance {
+    0% {
+      -webkit-transform: scale(1) rotateZ(0);
+              transform: scale(1) rotateZ(0);
+    }
+    50% {
+      -webkit-transform: scale(1.1) rotateZ(21deg);
+              transform: scale(1.1) rotateZ(21deg);
+    }
+    100% {
+      -webkit-transform: scale(1) rotateZ(-21deg);
+              transform: scale(1) rotateZ(-21deg);
+    }
+  }
+  @keyframes dance {
+    0% {
+      -webkit-transform: scale(1) rotateZ(0);
+              transform: scale(1) rotateZ(0);
+    }
+    50% {
+      -webkit-transform: scale(1.1) rotateZ(21deg);
+              transform: scale(1.1) rotateZ(21deg);
+    }
+    100% {
+      -webkit-transform: scale(1) rotateZ(-21deg);
+              transform: scale(1) rotateZ(-21deg);
+    }
+  }
+  
 
 @keyframes colores {
     20%{
