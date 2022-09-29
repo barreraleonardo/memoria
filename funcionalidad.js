@@ -56,7 +56,7 @@ let iconos = [];
                 gameSound.play();
                 
             }, 3100); 
-            cont =11;
+            cont =0;
            
             winSound.pause();
             winSound.currentTime = 0;
